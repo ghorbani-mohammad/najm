@@ -177,7 +177,8 @@ class Publication extends Model
 
     public function storeFile(UploadedFile $document, $type = 'publication_files')
     {
-        $filename = "publication_{$this->id}_{$type}_{$document->getClientOriginalName()}.{$document->getClientOriginalExtension()}";
+        $withoutExt = preg_replace('/\\.[^.\\s]{3,4}$/', '', $document->getClientOriginalName());
+        $filename = "publication_{$this->id}_{$type}_{$withoutExt}.{$document->getClientOriginalExtension()}";
         $file = Storage::disk('files')->putFileAs($type, $document, $filename);
 
         return $file;
