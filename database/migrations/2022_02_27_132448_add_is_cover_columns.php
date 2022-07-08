@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddIsCoverColumns extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('publication_files', function (Blueprint $table) {
+            $table->boolean('is_cover')->default(false);
+        });
+        Schema::table('miz_files', function (Blueprint $table) {
+            $table->boolean('is_cover')->default(false);
+        });
+        Schema::table('book_files', function (Blueprint $table) {
+            $table->boolean('is_cover')->default(false);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('publication_files', function (Blueprint $table) {
+            $table->dropColumn('is_cover');
+        });
+        Schema::table('miz_files', function (Blueprint $table) {
+            $table->dropColumn('is_cover');
+        });
+        Schema::table('book_files', function (Blueprint $table) {
+            $table->dropColumn('is_cover');
+        });
+    }
+}
