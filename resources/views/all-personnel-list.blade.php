@@ -24,14 +24,6 @@
                             <td>تعداد کل پژوهشگران</td>
                             <td>{{$total}}</td>
                         </tr>
-                        <tr>
-                            <td>تعداد پژوهشگران مقیم </td>
-                            <td>{{$moghim}}</td>
-                        </tr>
-                        <tr>
-                            <td>تعداد پژوهشگران غیر مقیم</td>
-                            <td>{{$gheyrmoghim}}</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
