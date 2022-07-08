@@ -117,7 +117,7 @@ class Personnel extends Model
 
         }
         $publications = $ids->get();
-//        dd($ids->toSql(), $ids->getBindings());
+        // dd($ids->toSql(), $ids->getBindings());
         $ids = $publications->pluck('id')->toArray();
         if ($hasDate) {
             $maghales =Maghale::where('authors', 'like', "%{$this->name}%")->whereIn('publication_id', $ids)->get();
@@ -126,7 +126,7 @@ class Personnel extends Model
             $maghales = Maghale::where('authors', 'like', "%{$this->name}%")->get();
             $ids2 = $maghales->pluck('publication_id')->toArray();
         }
-//        dump($ids, $ids2);
+        // dump($ids, $ids2);
         $allIds = array_merge($ids, $ids2);
 
         $bookFields = ['type', 'title', 'title_en', 'nobate_chap', 'shomaregan', 'shabak', 'fipa', 'tahrir_moallef', 'tahrir_nazer_ali', 'tahrir_nazer_elmi', 'tahrir_nazer_fanni', 'tahrir_virastar', 'tahrir_nemoone_khan', 'tahrir_type_safhe_arayi', 'tahrir_tarrah_jeld', 'hazine_talif', 'hazine_type', 'hazine_safhe_arayi', 'hazine_tarahi_jeld', 'hazine_davaran', 'hazine_nezarat_fani', 'hazine_nezarat_adabi', 'hazine_chap', 'hazine_majmooe', 'hazine_moshavere', 'hazine_manabe_mostanadat', 'hazine_elsagh_ghardad', 'enteshar_tarikhe_shoroo_hamkari', 'enteshar_tarikhe_etmam_hamkari', 'enteshar_tarikhe_ersal_be_davari', 'natije_davari', 'enteshar_tarikhe_ersal_be_virastyar', 'enteshar_tarikhe_daryaft_salahiat_amniati', 'enteshar_tarikhe_ersal_entesharat', 'enteshar_tarikhe_daryaft_shabak', 'enteshar_tarikhe_daryaft_fipa', 'deleted_at', 'created_at', 'updated_at', 'sal', 'enteshar_tarikh', 'hazine_maghalat'];
@@ -144,7 +144,7 @@ class Personnel extends Model
         $books = $bookIds->get();
         $bookIds = $books->pluck('id')->toArray();
 
-//        dump($this->name, $bookIds, $allIds);
+        // dump($this->name, $bookIds, $allIds);
         $total = count($bookIds) + count($allIds);
         return compact('publications', 'books', 'maghales', 'total');
     }
