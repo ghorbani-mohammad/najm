@@ -20,7 +20,7 @@ class ReportsController extends Controller
     {
         $products = [
             "publications" => Publication::getAllTypes(),
-//            "books" => Book::getAllTypes(),
+            // "books" => Book::getAllTypes(),
             "projects" => Project::getAllTypes(),
             "miz" => MizLanguage::pluck('language', 'id')->toArray(),
         ];
@@ -185,16 +185,16 @@ class ReportsController extends Controller
                 $data["{$timeFrame->getYear()}"]["{$timeFrame->getMonth()}"]['books'] = 1;
             }
         }
-//        dump($data);
+        // dump($data);
         asort($data);
-//        dump($data);
+        // dump($data);
         $result = [];
         $yAxis = [];
         $result2 = [];
         foreach ($data as $year => $records) {
-//            dump($records);
+            // dump($records);
             asort($records);
-//            dd($records);
+            // dd($records);
             foreach ($records as $month => $counts) {
                 $frame = "$year-$month";
                 $yAxis[] = $frame;
