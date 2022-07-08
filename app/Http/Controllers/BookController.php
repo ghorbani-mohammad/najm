@@ -37,6 +37,12 @@ class BookController extends Controller
         return redirect()->back();
     }
 
+    public function delete(Book $book)
+    {
+        $book->delete();
+        return redirect()->back();
+    }
+
     public function add()
     {
         $fields = Book::getAllFields();

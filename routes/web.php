@@ -169,6 +169,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('book.')->prefix('book')->group(function () {
         Route::get('view/{book}', [BookController::class, 'view'])->name('view');
         Route::post('view/{book}', [BookController::class, 'update'])->name('update');
+        Route::get('delete/{book}', [BookController::class, 'delete'])->name('delete');
         Route::get('add', [BookController::class, 'add'])->name('add');
         Route::post('add', [BookController::class, 'postAdd'])->name('add');
         Route::get('all/{type?}', [BookController::class, 'all'])->name('all');

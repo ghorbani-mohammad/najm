@@ -112,6 +112,7 @@
                             <th> شمارگان</th>
                             <th> محتوا</th>
                             <th> اطلاعات کامل</th>
+                            <th>حذف</th>
                         </tr>
                         </thead>
 
@@ -133,6 +134,12 @@
                                     <a class="btn btn-success btn-sm"
                                        href={{route('book.view', ['book' => $item->id])}}>
                                         مشاهده اطلاعات کامل
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm"
+                                       href={{route('book.delete', ['book' => $item->id])}}>
+                                        حذف
                                     </a>
                                 </td>
                             </tr>
