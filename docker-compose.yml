@@ -58,6 +58,7 @@ services:
 networks:
   mynet:
     driver: bridge
+
 #Volumes
 volumes:
   mysqldata:

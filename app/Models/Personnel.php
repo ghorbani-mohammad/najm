@@ -109,43 +109,50 @@ class Personnel extends Model
         $hasDate = false;
         if ($startDate ?? false) {
             $hasDate = true;
-            $ids->where('tarikhe_enteshar', '>=', $startDate);
+            $ids->whereNull('tarikhe_enteshar')->orWhere('tarikhe_enteshar', '>=', $startDate);
         }
         if ($endDate ?? false) {
             $hasDate = true;
-            $ids->where('tarikhe_enteshar', '<=', $endDate);
-
+            $ids->whereNull('tarikhe_enteshar')->orWhere('tarikhe_enteshar', '<=', $endDate);
         }
         $publications = $ids->get();
-        // dd($ids->toSql(), $ids->getBindings());
-        $ids = $publications->pluck('id')->toArray();
+        $pub_ids = $publications->pluck('id')->toArray();
+
+        $maghales = Maghale::where('authors', 'like', "%{$this->name}%");
+        $maghale_ids = [];
         if ($hasDate) {
-            $maghales =Maghale::where('authors', 'like', "%{$this->name}%")->whereIn('publication_id', $ids)->get();
-            $ids2 = $maghales->pluck('publication_id')->toArray();
-        } else {
-            $maghales = Maghale::where('authors', 'like', "%{$this->name}%")->get();
-            $ids2 = $maghales->pluck('publication_id')->toArray();
+            foreach($maghales->get() as $magh){
+                $pub = Publication::find($magh->publication_id);
+                if ($pub->tarikhe_enteshar >= $startDate){
+                    array_push($maghale_ids, $magh->id);
+                    continue;
+                }
+                if ($pub->tarikhe_enteshar <= $endDate){
+                    array_push($maghale_ids, $magh->id);
+                    continue;
+                }
+                if (is_null($pub->tarikhe_enteshar)){
+                    array_push($maghale_ids, $magh->id);
+                    continue;
+                }
+            }
         }
-        // dump($ids, $ids2);
-        $allIds = array_merge($ids, $ids2);
+        $maghales = Maghale::whereIn('id', $maghale_ids)->get();
 
         $bookFields = ['type', 'title', 'title_en', 'nobate_chap', 'shomaregan', 'shabak', 'fipa', 'tahrir_moallef', 'tahrir_nazer_ali', 'tahrir_nazer_elmi', 'tahrir_nazer_fanni', 'tahrir_virastar', 'tahrir_nemoone_khan', 'tahrir_type_safhe_arayi', 'tahrir_tarrah_jeld', 'hazine_talif', 'hazine_type', 'hazine_safhe_arayi', 'hazine_tarahi_jeld', 'hazine_davaran', 'hazine_nezarat_fani', 'hazine_nezarat_adabi', 'hazine_chap', 'hazine_majmooe', 'hazine_moshavere', 'hazine_manabe_mostanadat', 'hazine_elsagh_ghardad', 'enteshar_tarikhe_shoroo_hamkari', 'enteshar_tarikhe_etmam_hamkari', 'enteshar_tarikhe_ersal_be_davari', 'natije_davari', 'enteshar_tarikhe_ersal_be_virastyar', 'enteshar_tarikhe_daryaft_salahiat_amniati', 'enteshar_tarikhe_ersal_entesharat', 'enteshar_tarikhe_daryaft_shabak', 'enteshar_tarikhe_daryaft_fipa', 'deleted_at', 'created_at', 'updated_at', 'sal', 'enteshar_tarikh', 'hazine_maghalat'];
         $bookIds = Book::query();
         foreach ($bookFields as $field) {
             $bookIds->orwhere($field, 'like', "%{$this->name}%");
-
         }
         if ($startDate ?? false) {
-        $bookIds->where('enteshar_tarikh', '>=', $startDate);
-    }
+            $bookIds->whereNull('enteshar_tarikh')->orWhere('enteshar_tarikh', '>=', $startDate);
         if ($endDate ?? false) {
-            $bookIds->where('enteshar_tarikh', '<=', $endDate);
+            $bookIds->whereNull('enteshar_tarikh')->orWhere('enteshar_tarikh', '<=', $endDate);
         }
         $books = $bookIds->get();
         $bookIds = $books->pluck('id')->toArray();
 
-        // dump($this->name, $bookIds, $allIds);
-        $total = count($bookIds) + count($allIds);
+        $total = count($bookIds) + count($pub_ids) + count($maghale_ids); 
         return compact('publications', 'books', 'maghales', 'total');
     }
 
