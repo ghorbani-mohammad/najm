@@ -106,13 +106,11 @@ class Personnel extends Model
         foreach ($fields as $field) {
             $ids->orWhere($field, 'like', "%{$this->name}%");
         }
-        $hasDate = false;
-        if ($startDate ?? false) {
-            $hasDate = true;
+        $hasDate = $startDate || $endDate;
+        if ($startDate) {
             $ids->whereNull('tarikhe_enteshar')->orWhere('tarikhe_enteshar', '>=', $startDate);
         }
-        if ($endDate ?? false) {
-            $hasDate = true;
+        if ($endDate) {
             $ids->whereNull('tarikhe_enteshar')->orWhere('tarikhe_enteshar', '<=', $endDate);
         }
         $publications = $ids->get();
