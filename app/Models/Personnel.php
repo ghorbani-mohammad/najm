@@ -102,19 +102,33 @@ class Personnel extends Model
             'heyat_virastar_elmi', 'heyat_virastar_adabi', 'heyat_nemoone_khan', 'shomare', 'tarikhe_enteshar',
             'shomare_mosalsal', 'shomaregan', 'title', 'title_en', 'authors', 'keshvar', 'moassese_montasher_konande',
             'tahie_konande', 'ravesh_tahie'];
-        $ids = Publication::query();
+        $publications = Publication::query();
         foreach ($fields as $field) {
-            $ids->orWhere($field, 'like', "%{$this->name}%");
+            $publications->orWhere($field, 'like', "%{$this->name}%");
         }
         $hasDate = $startDate || $endDate;
-        if ($startDate) {
-            $ids->whereNull('tarikhe_enteshar')->orWhere('tarikhe_enteshar', '>=', $startDate);
+
+        $pub_ids = [];
+        if ($hasDate) {
+            foreach($publications->get() as $pub){
+                if ($pub->tarikhe_enteshar >= $startDate){
+                    array_push($pub_ids, $pub->id);
+                    continue;
+                }
+                if ($pub->tarikhe_enteshar <= $endDate){
+                    array_push($pub_ids, $pub->id);
+                    continue;
+                }
+                if (is_null($pub->tarikhe_enteshar)){
+                    array_push($pub_ids, $pub->id);
+                    continue;
+                }
+            }
         }
-        if ($endDate) {
-            $ids->whereNull('tarikhe_enteshar')->orWhere('tarikhe_enteshar', '<=', $endDate);
+        else{
+            $pub_ids = $publications->pluck('id')->toArray();
         }
-        $publications = $ids->get();
-        $pub_ids = $publications->pluck('id')->toArray();
+        $publications = Publication::whereIn('id', $pub_ids)->get();
 
         $maghales = Maghale::where('authors', 'like', "%{$this->name}%");
         $maghale_ids = [];
