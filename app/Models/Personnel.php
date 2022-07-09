@@ -146,6 +146,7 @@ class Personnel extends Model
         }
         if ($startDate ?? false) {
             $bookIds->whereNull('enteshar_tarikh')->orWhere('enteshar_tarikh', '>=', $startDate);
+        }
         if ($endDate ?? false) {
             $bookIds->whereNull('enteshar_tarikh')->orWhere('enteshar_tarikh', '<=', $endDate);
         }
