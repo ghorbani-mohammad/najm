@@ -155,20 +155,33 @@ class Personnel extends Model
         $maghales = Maghale::whereIn('id', $maghale_ids)->get();
 
         $bookFields = ['type', 'title', 'title_en', 'nobate_chap', 'shomaregan', 'shabak', 'fipa', 'tahrir_moallef', 'tahrir_nazer_ali', 'tahrir_nazer_elmi', 'tahrir_nazer_fanni', 'tahrir_virastar', 'tahrir_nemoone_khan', 'tahrir_type_safhe_arayi', 'tahrir_tarrah_jeld', 'hazine_talif', 'hazine_type', 'hazine_safhe_arayi', 'hazine_tarahi_jeld', 'hazine_davaran', 'hazine_nezarat_fani', 'hazine_nezarat_adabi', 'hazine_chap', 'hazine_majmooe', 'hazine_moshavere', 'hazine_manabe_mostanadat', 'hazine_elsagh_ghardad', 'enteshar_tarikhe_shoroo_hamkari', 'enteshar_tarikhe_etmam_hamkari', 'enteshar_tarikhe_ersal_be_davari', 'natije_davari', 'enteshar_tarikhe_ersal_be_virastyar', 'enteshar_tarikhe_daryaft_salahiat_amniati', 'enteshar_tarikhe_ersal_entesharat', 'enteshar_tarikhe_daryaft_shabak', 'enteshar_tarikhe_daryaft_fipa', 'deleted_at', 'created_at', 'updated_at', 'sal', 'enteshar_tarikh', 'hazine_maghalat'];
-        $bookIds = Book::query();
+        $books = Book::query();
         foreach ($bookFields as $field) {
-            $bookIds->orwhere($field, 'like', "%{$this->name}%");
+            $books->orwhere($field, 'like', "%{$this->name}%");
         }
-        if ($startDate ?? false) {
-            $bookIds->whereNull('enteshar_tarikh')->orWhere('enteshar_tarikh', '>=', $startDate);
+        $book_ids = [];
+        if ($hasDate) {
+            foreach($books->get() as $book){
+                if ($book->enteshar_tarikh >= $startDate){
+                    array_push($book_ids, $book->id);
+                    continue;
+                }
+                if ($book->enteshar_tarikh <= $endDate){
+                    array_push($book_ids, $book->id);
+                    continue;
+                }
+                if (is_null($book->enteshar_tarikh)){
+                    array_push($book_ids, $book->id);
+                    continue;
+                }
+            }
         }
-        if ($endDate ?? false) {
-            $bookIds->whereNull('enteshar_tarikh')->orWhere('enteshar_tarikh', '<=', $endDate);
+        else{
+            $book_ids = $books->pluck('id')->toArray();
         }
-        $books = $bookIds->get();
-        $bookIds = $books->pluck('id')->toArray();
+        $books = Book::whereIn('id', $book_ids)->get();
 
-        $total = count($bookIds) + count($pub_ids) + count($maghale_ids); 
+        $total = count($book_ids) + count($pub_ids) + count($maghale_ids); 
         return compact('publications', 'books', 'maghales', 'total');
     }
 
