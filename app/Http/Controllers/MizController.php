@@ -94,6 +94,12 @@ class MizController extends Controller
         return redirect()->back();
     }
 
+    public function delete(MizSession $session)
+    {
+        $session->delete();
+        return redirect()->back();
+    }
+
     public function add()
     {
         $fields = MizSession::getAllFields();

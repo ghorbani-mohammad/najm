@@ -116,6 +116,7 @@
                             <th>حاضرین</th>
                             <th>محتوا</th>
                             <th> اطلاعات کامل</th>
+                            <th>حذف</th>
                         </tr>
                         </thead>
 
@@ -143,6 +144,11 @@
                                 <td>
                                     <a class="btn btn-success btn-sm" href={{route('miz.sessions.view', ['session' => $item->id])}}>
                                         مشاهده اطلاعات کامل
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm" href={{route('miz.sessions.delete', ['session' => $item->id])}}>
+                                        حذف
                                     </a>
                                 </td>
                             </tr>
