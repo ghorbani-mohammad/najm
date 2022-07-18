@@ -114,6 +114,12 @@ class PersonnelController extends Controller
         return view('update-person-form', ['person' => $person]);
     }
 
+    public function deletePersonnel($id)
+    {
+        $person = Personnel::find($personId);
+        return redirect()->back()->with('message', 'حذف شد');
+    }
+
     public function postUpdatePersonnel(Request $request, $personId)
     {
         $data = MyRequest::all($request);

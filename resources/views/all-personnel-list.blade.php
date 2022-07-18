@@ -86,6 +86,7 @@
                             <th>نوع همکاری</th>
                             <th>تعداد نشریات و کتب</th>
                             <th> اطلاعات کامل</th>
+                            <th>حذف</th>
                         </tr>
                         </thead>
 
@@ -105,6 +106,11 @@
                                 <td>
                                     <a class="btn btn-success" href={{route('get-personnel-info', ['id' => $person->id])}}>
                                         مشاهده اطلاعات کامل
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger" href={{route('delete-personnel', ['id' => $person->id])}}>
+                                        حذف
                                     </a>
                                 </td>
                             </tr>

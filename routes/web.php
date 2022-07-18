@@ -65,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('search-personnel', [PersonnelController::class, 'postSearchPersonnel'])->name('search-personnel');
 
     Route::get('personnel/{id}', [PersonnelController::class, 'getPersonnelInfo'])->name('get-personnel-info');
+    Route::get('delete-personnel/{id}', [PersonnelController::class, 'deletePersonnel'])->name('delete-personnel');
     Route::post('update-personnel/{personId}', [PersonnelController::class, 'postUpdatePersonnel'])->name('update-personnel-info');
 
     Route::post('add-job/{id}', [PersonnelController::class, 'addJob'])->name('add-job');
