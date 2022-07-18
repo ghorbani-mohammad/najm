@@ -117,7 +117,7 @@ class PersonnelController extends Controller
     public function deletePersonnel($id)
     {
         $person = Personnel::find($id);
-        $person->delete()
+        $person->delete();
         return redirect()->back()->with('message', 'حذف شد');
     }
 
