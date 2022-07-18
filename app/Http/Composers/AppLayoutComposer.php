@@ -19,7 +19,7 @@ class AppLayoutComposer
             'projectTypes' => Project::getAllTypes(),
             'publicationTypes' => Publication::getAllTypes(),
             'bookTypes' => Book::getAllTypes(),
-            'mizLanguages' => MizLanguage::orderBy('id')->all(),
+            'mizLanguages' => MizLanguage::all(),
         ]);
     }
 }
