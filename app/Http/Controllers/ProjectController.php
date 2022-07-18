@@ -27,6 +27,12 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function delete(Project $project)
+    {
+        $project-delete();
+        return redirect()->back();
+    }
+
     public function update(Project $project, Request $request)
     {
         $data = MyRequest::all($request);

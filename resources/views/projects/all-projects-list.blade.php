@@ -74,6 +74,7 @@
                             <th> نوع</th>
                             <th> بازخورد</th>
                             <th> اطلاعات کامل</th>
+                            <th>حذف</th>
                         </tr>
                         </thead>
 
@@ -92,6 +93,12 @@
                                 <td>
                                     <a href={{route('project.view', ['project' => $item->id])}}>
                                         مشاهده اطلاعات کامل
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm"
+                                       href={{route('project.delete', ['project' => $item->id])}}>
+                                        حذف
                                     </a>
                                 </td>
                             </tr>

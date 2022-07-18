@@ -192,6 +192,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('project.')->prefix('project')->group(function () {
         Route::get('view/{project}', [ProjectController::class, 'view'])->name('view');
         Route::post('view/{project}', [ProjectController::class, 'update'])->name('update');
+        Route::get('delete/{project}', [ProjectController::class, 'delete'])->name('delete');
         Route::get('add', [ProjectController::class, 'add'])->name('add');
         Route::post('add', [ProjectController::class, 'postAdd'])->name('add');
         Route::get('all/{type?}', [ProjectController::class, 'all'])->name('all');
