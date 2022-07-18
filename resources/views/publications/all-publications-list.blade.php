@@ -139,6 +139,7 @@
                                        href={{route('publication.view', ['publication' => $item->id])}}>
                                         مشاهده اطلاعات کامل
                                     </a>
+                                    <a class="btn btn-danger btn-sm">حذف</a>
                                 </td>
                             </tr>
                         @endforeach
