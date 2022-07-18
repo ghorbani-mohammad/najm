@@ -72,6 +72,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('publication.')->prefix('publication')->group(function () {
         Route::get('view/{publication}', [PublicationController::class, 'view'])->name('view');
         Route::post('view/{publication}', [PublicationController::class, 'update'])->name('update');
+        Route::post('delete/{publication}', [PublicationController::class, 'delete'])->name('delete');
         Route::get('add', [PublicationController::class, 'add'])->name('add');
         Route::post('add', [PublicationController::class, 'postAdd'])->name('add');
         Route::get('all/{type?}', [PublicationController::class, 'all'])->name('all');

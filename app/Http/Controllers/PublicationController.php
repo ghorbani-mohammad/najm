@@ -42,6 +42,12 @@ class PublicationController extends Controller
         return redirect()->back();
     }
 
+    public function delete(Publication $publication)
+    {
+        $publication->delete();
+        return redirect()->back();
+    }
+
     public function add()
     {
         $fields = Publication::getAllFields();
