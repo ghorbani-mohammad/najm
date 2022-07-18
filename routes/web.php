@@ -135,7 +135,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('add', [MizController::class, 'postAdd'])->name('post-add');
             Route::get('view/{session}', [MizController::class, 'view'])->name('view');
             Route::post('view/{session}', [MizController::class, 'update'])->name('update');
-            Route::get('view/{session}', [MizController::class, 'delete'])->name('delete');
+            Route::get('delete/{session}', [MizController::class, 'delete'])->name('delete');
 
             Route::get('members/{session}', [MizController::class, 'getSessionMembers'])->name('members');
             Route::post('members/variable/{session}', [MizController::class, 'postVariableMembers'])->name('post-variable-members');
