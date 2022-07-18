@@ -29,7 +29,7 @@ class ProjectController extends Controller
 
     public function delete(Project $project)
     {
-        $project-delete();
+        $project->delete();
         return redirect()->back();
     }
 
