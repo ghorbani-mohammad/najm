@@ -113,6 +113,7 @@
                             <th>بازخورد</th>
                             <th>محتوا</th>
                             <th>اطلاعات کامل</th>
+                            <th>حذف</th>
                         </tr>
                         </thead>
 
@@ -139,6 +140,8 @@
                                        href={{route('publication.view', ['publication' => $item->id])}}>
                                         مشاهده اطلاعات کامل
                                     </a>
+                                </td>
+                                <td>
                                     <a class="btn btn-danger btn-sm" href={{route('publication.delete', ['publication' => $item->id])}}>حذف</a>
                                 </td>
                             </tr>
