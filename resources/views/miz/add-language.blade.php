@@ -74,7 +74,7 @@
                                 </td>
                                 @if($isAdmin)
                                     <td>
-                                        <a href={{route('miz.languages.delete', ['language' => $language->id])}}>
+                                        <a class="btn btn-danger btn-sm" href={{route('miz.languages.delete', ['language' => $language->id])}}>
                                             حذف
                                         </a>
                                     </td>
