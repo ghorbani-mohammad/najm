@@ -120,5 +120,17 @@
         </ul>
     </li>
 
+    <li>
+        <a><i class="fa fa-edit"></i>مدیریت کاربران<span
+                class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu" style="display: block;">
+            <li>
+                <a href="{{route('report.products')}}">
+                    مدیریت کاربران
+                </a>
+            </li>
+        </ul>
+    </li>
+
 </ul>
 

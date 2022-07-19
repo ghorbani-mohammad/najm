@@ -51,4 +51,16 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    public function list()
+    {
+        $users = User::all();
+        return view('user.list')->with(compact('users'));
+    }
+    
+    public function delete(User $user)
+    {
+        $user->delete();
+        return redirect()->back();
+    }
 }

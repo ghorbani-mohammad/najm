@@ -10,6 +10,7 @@ use App\Http\Controllers\PersonnelController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\TahrirMoshaverController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -240,5 +241,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('personnel', [ReportsController::class, 'postPersonnel'])->name('post-personnel');
         Route::get('person', [ReportsController::class, 'person'])->name('person');
         Route::post('person', [ReportsController::class, 'postPerson'])->name('post-person');
+    });
+    Route::name('user.')->prefix('user')->group(function (){
+        Route::get('list', [RegisteredUserController::class, 'list'])->name('list');
+        Route::get('delete/{user}', [RegisteredUserController::class, 'delete'])->name('delete');
     });
 });

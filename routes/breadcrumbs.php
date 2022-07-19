@@ -324,3 +324,7 @@ Breadcrumbs::for('report.post-person', function ($trail) {
     $trail->push('فعالیت پژوهشگر', route('report.post-person'));
 });
 
+Breadcrumbs::for('user.list', function ($trail) {
+    $trail->push('لیست کاربران', route('user.list'));
+});
+
