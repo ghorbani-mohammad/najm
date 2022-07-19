@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\MyRequest;
 
 class RegisteredUserController extends Controller
 {
@@ -62,5 +63,31 @@ class RegisteredUserController extends Controller
     {
         $user->delete();
         return redirect()->back();
+    }
+
+    public function view(User $user)
+    {
+        return view('user.view')->with(compact('user'));
+    }
+
+    public function update(User $user, Request $request)
+    {
+        $data = MyRequest::all($request);
+        foreach ($data['info'] as $key => $field) {
+            if ($key == 'password'){
+                if(is_null($field)){
+                    continue;
+                }
+                else{
+                    $user->$key = Hash::make($field);
+                }
+            }
+            else{
+                $user->$key = $field;
+            }
+        }
+        $user->save();
+        $users = User::all();
+        return redirect()->route('user.list');
     }
 }

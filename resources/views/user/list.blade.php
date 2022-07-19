@@ -14,21 +14,32 @@
                     <table id="myTable" class="table table-striped table-bordered">
                         <thead>
                         <tr>
+                            <th>نام</th>
                             <th>یوزرنیم</th>
                             <th>ایمیل</th>
                             <th>نوع</th>
-                            <th>حذف</th>
+                            <th>عملیات</th>
                         </tr>
                         </thead>
 
                         <tbody>
                         @foreach($users as $user)
                             <tr>
+                                <td>{{$user->name}}</td>
                                 <td>{{$user->username}}</td>
                                 <td>{{$user->email}}</td>
-                                <td>{{$user->type}}</td>
                                 <td>
-                                    <a class="btn btn-danger" href={{route('user.delete', ['user' => $user->id])}}>
+                                    @if ($user->type == 'admin')
+                                        مدیر
+                                    @else
+                                        کاربر
+                                    @endif
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-sm" href={{route('user.view', ['user' => $user->id])}}>
+                                        ویرایش
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" href={{route('user.delete', ['user' => $user->id])}}>
                                         حذف
                                     </a>
                                 </td>

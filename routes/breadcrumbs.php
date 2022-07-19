@@ -328,3 +328,7 @@ Breadcrumbs::for('user.list', function ($trail) {
     $trail->push('لیست کاربران', route('user.list'));
 });
 
+Breadcrumbs::for('user.view', function ($trail, \App\Models\User $user) {
+    $trail->parent('user.list', $user->id);
+    $trail->push('مشاهده کاربر', route('user.view', $user->id));
+});
