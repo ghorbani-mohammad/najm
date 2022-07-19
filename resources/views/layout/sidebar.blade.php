@@ -119,18 +119,19 @@
             </li>
         </ul>
     </li>
-
-    <li>
-        <a><i class="fa fa-edit"></i>مدیریت کاربران<span
-                class="fa fa-chevron-down"></span></a>
-        <ul class="nav child_menu" style="display: block;">
-            <li>
-                <a href="{{route('user.list')}}">
-                    مدیریت کاربران
-                </a>
-            </li>
-        </ul>
-    </li>
+    @if(Auth::check() && Auth::user()->type == "admin")
+        <li>
+            <a><i class="fa fa-edit"></i>مدیریت کاربران<span
+            class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu" style="display: block;">
+                <li>
+                    <a href="{{route('user.list')}}">
+                        مدیریت کاربران
+                    </a>
+                </li>
+            </ul>
+        </li>
+    @endif
 
 </ul>
 
