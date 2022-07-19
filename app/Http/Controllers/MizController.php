@@ -322,9 +322,7 @@ class MizController extends Controller
     public function postVariableMembers(Request $request, MizSession $session)
     {
         $member = new MizSessionMember(MyRequest::get($request, 'addMember'));
-
         $session->members()->save($member);
-
         return redirect()->back();
     }
 
@@ -333,9 +331,7 @@ class MizController extends Controller
         $memberID = $request->get('addPermanentMember');
         $member = MizLanguageMember::find($memberID);
         $mizSessionMember = new MizSessionMember($member->only(['name', 'madrak', 'sazman_matbooe', 'role']));
-
         $session->members()->save($mizSessionMember);
-
         return redirect()->back();
     }
 
