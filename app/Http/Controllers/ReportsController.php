@@ -159,6 +159,9 @@ class ReportsController extends Controller
         $input = MyRequest::all($request);
         /** @var Personnel $person */
         $person = Personnel::where('name', 'like', "%{$input['name']}%")->first();
+        if (is_null($person)){
+            return redirect()->back()->with('message', 'همکار مورد نظر در سامانه پیدا نشد');
+        }
         $publications = $person->publications($input['date_from'], $input['date_to']);
         $data = [];
         foreach ($publications['publications'] as $publication) {
