@@ -69,7 +69,8 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form method="post" action="{{route('miz.languages.post-members', ['language' => $session->language->id])}}" data-parsley-validate class="form-horizontal form-label-left"
+                    <form method="post" action="{{route('miz.languages.post-members', ['language' => $session->language->id, 'session' => $session->id])}}" 
+                        data-parsley-validate class="form-horizontal form-label-left"
                         enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="control-label col-md-2 col-sm-1 " for="name">نام</label>

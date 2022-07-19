@@ -186,14 +186,12 @@ class MizController extends Controller
             $evaluation->link = $evaluation->storeFile($request->file('addEvaluationFile.file'));
             $evaluation->save();
         }
-
         return redirect()->back();
     }
 
     public function deleteEvaluation(Evaluation $evaluation)
     {
         $evaluation->delete();
-
         return redirect()->back();
     }
 
@@ -266,10 +264,8 @@ class MizController extends Controller
                 $evaluations[] = $evaluation;
             }
         }
-
         $stats = Evaluation::getstat($evaluations);
         $stats['sessions'] = $selectedSessions;
-
         return view('miz.session-bazkhord-goroohi-result')->with($stats);
     }
 
@@ -284,26 +280,26 @@ class MizController extends Controller
     public function getMembers(MizLanguage $language)
     {
         $members = $language->members;
-
         return view('miz.language-members')->with([
             'members' => $members,
             'language' => $language,
         ]);
     }
 
-    public function postMembers(Request $request, MizLanguage $language)
+    public function postMembers(Request $request, MizLanguage $language, MizSession $session)
     {
         $member = new MizLanguageMember($request->get('addMember'));
-
-        $language->members()->save($member);
-
+        $session->language->members()->save($member);
+        $mizSessionMember = new MizSessionMember($member->only(['name', 'madrak', 'sazman_matbooe', 'role']));
+        $mizSessionMember->session_id = $session->id;
+        $mizSessionMember->save();
+        $session->members()->save($mizSessionMember);
         return redirect()->back();
     }
 
     public function deleteMember(MizLanguageMember $member)
     {
         $member->delete();
-
         return redirect()->back();
     }
 
@@ -311,7 +307,6 @@ class MizController extends Controller
     {
         $members = $session->members;
         $permanentMembers = $session->language->members;
-
         return view('miz.session-members')->with([
             'members' => $members,
             'permanentMembers' => $permanentMembers,
@@ -338,7 +333,6 @@ class MizController extends Controller
     public function deleteSessionMember(MizSessionMember $member)
     {
         $member->delete();
-
         return redirect()->back();
     }
 
@@ -355,7 +349,6 @@ class MizController extends Controller
             $member->$key = $value;
         }
         $member->save();
-
         return redirect()->back();
     }
 

@@ -128,7 +128,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('update/{language}', [MizController::class, 'updateLanguage'])->name('update');
             Route::post('update/{language}', [MizController::class, 'postUpdateLanguage'])->name('update-post');
             Route::get('members/{language}', [MizController::class, 'getMembers'])->name('members');
-            Route::post('members/{language}', [MizController::class, 'postMembers'])->name('post-members');
+            Route::post('members/{session}', [MizController::class, 'postMembers'])->name('post-members');
             Route::get('members/delete/{member}', [MizController::class, 'deleteMember'])->name('members.delete');
         });
         Route::name('sessions.')->prefix('session')->group(function () {
