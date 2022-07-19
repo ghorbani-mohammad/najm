@@ -332,3 +332,7 @@ Breadcrumbs::for('user.view', function ($trail, \App\Models\User $user) {
     $trail->parent('user.list', $user->id);
     $trail->push('مشاهده کاربر', route('user.view', $user->id));
 });
+
+Breadcrumbs::for('user.create', function ($trail) {
+    $trail->push('ایجاد کاربر', route('user.create'));
+});

@@ -19,10 +19,10 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
-    {
-        return view('auth.register');
-    }
+    // public function create()
+    // {
+    //     return view('auth.register');
+    // }
 
     /**
      * Handle an incoming registration request.
@@ -34,23 +34,14 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        $user = new User();
+        $user->name = $request->info['name'];
+        $user->email = $request->info['email'];
+        $user->username = $request->info['username'];
+        $user->type = $request->info['type'];
+        $user->password = Hash::make($request->info['password']);
+        $user->save();
+        return redirect()->route('user.list');
     }
 
     public function list()
@@ -68,6 +59,11 @@ class RegisteredUserController extends Controller
     public function view(User $user)
     {
         return view('user.view')->with(compact('user'));
+    }
+
+    public function create(User $user)
+    {
+        return view('user.create');
     }
 
     public function update(User $user, Request $request)

@@ -2,6 +2,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12 col-sm-12 ">
+            <a href="{{route('user.create')}}" type="button" class="btn btn-success">اضافه کردن</a>
             <div class="x_panel">
                 <div class="x_title">
                     <ul class="nav navbar-right panel_toolbox">

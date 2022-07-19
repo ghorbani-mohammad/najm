@@ -243,8 +243,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('person', [ReportsController::class, 'postPerson'])->name('post-person');
     });
     Route::name('user.')->prefix('user')->group(function (){
-        Route::get('add', [RegisteredUserController::class, 'create'])->name('create');
-        Route::post('store', [RegisteredUserController::class, 'store'])->name('register');
+        Route::get('create', [RegisteredUserController::class, 'create'])->name('create');
+        Route::post('create', [RegisteredUserController::class, 'store'])->name('store');
         Route::get('list', [RegisteredUserController::class, 'list'])->name('list');
         Route::get('view/{user}', [RegisteredUserController::class, 'view'])->name('view');
         Route::get('delete/{user}', [RegisteredUserController::class, 'delete'])->name('delete');
