@@ -125,7 +125,7 @@
                 class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu" style="display: block;">
             <li>
-                <a href="{{route('report.products')}}">
+                <a href="{{route('user.list')}}">
                     مدیریت کاربران
                 </a>
             </li>
